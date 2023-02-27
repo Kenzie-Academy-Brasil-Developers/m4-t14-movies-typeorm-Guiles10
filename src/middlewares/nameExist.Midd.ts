@@ -4,7 +4,7 @@ import { AppDataSource } from '../data-source'
 import { Movie } from '../entities'
 import { AppError } from '../errors'
     
-export const NameExistMidd = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const nameExistMidd = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     
     const movieRepository: Repository<Movie> = AppDataSource.getRepository(Movie)
     
@@ -16,7 +16,7 @@ export const NameExistMidd = async (req: Request, res: Response, next: NextFunct
         })
     
         if(findMovie){
-            throw new AppError ('This movie has already been registered', 409)
+            throw new AppError ('Movie already exists.', 409)
         }
     }
     

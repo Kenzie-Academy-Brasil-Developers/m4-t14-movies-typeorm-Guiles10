@@ -1,22 +1,63 @@
 import { Movie } from "../../entities";
-import { MoviesReturn } from "../../interfaces/interface.Movies";
+import { MoviesAllReturn } from "../../interfaces/interface.Movies";
 import { AppDataSource } from "../../data-source";
 import { Repository } from "typeorm";
-import { ReturnAllMoviesSchema } from "../../schemas/Movies.schemas";
+import { ReturnAllMovie } from "../../schemas/movies.schemas";
 
-export const ListAllMovieService = async (page: any, perPage: any): Promise<MoviesReturn> => {
+export const listAllMovieService = async (page: any, perPage: any, order: any, sort: any): Promise<MoviesAllReturn> => {
     
     const movieRepository: Repository<Movie> = AppDataSource.getRepository(Movie)
+    
+    const baseURL: string =  'http://localhost3000/movies/'
 
-    const take: number = Number(perPage) || 5
-    const skip: number = Number(page) || 1
+    if (page <= 0 || Number.isNaN(+page) === true){
+        page = 1
+    }
+    if(perPage <= 0 || perPage > 5 || Number.isNaN(+perPage) === true){
+        perPage = 5
+    }
+    const take: number = Number(perPage)
+    const skip: number = Number(page)
+
+    if(order !== 'DESC') order = 'ASC'
+
+    if(sort != 'price' && sort != 'duration') sort = 'id'
+
+    let orderBy: string;
+    switch (sort) {
+      case 'price':
+        orderBy = 'price';
+        break;
+      case 'duration':
+        orderBy = 'duration';
+        break;
+      default:
+        orderBy = 'id';
+    }
 
     const movie: Array<Movie> = await movieRepository.find({
         take,
-        skip: take * ( skip - 1 )
+        skip: take * ( skip - 1 ),
+        order: {
+            [orderBy]: order
+        }
     })
+    
+    const totalCount = await movieRepository.count();
 
-    const AllMovie = ReturnAllMoviesSchema.parse(movie)
+    const totalPages = Math.ceil(totalCount / perPage);
 
-    return AllMovie
+    const nextPage = page < totalPages ? `${baseURL}?page=${page + 1}&perPage=${perPage}&sort=${sort}&order=${order}` : null;
+
+    const prevPage = page > 1 ? `${baseURL}?page=${page - 1}&perPage=${perPage}&sort=${sort}&order=${order}` : null;
+
+    const data = movie;
+
+    const AllMovies: MoviesAllReturn = ReturnAllMovie.parse({
+        nextPage,
+        prevPage,
+        data,
+    });
+
+    return AllMovies
 }

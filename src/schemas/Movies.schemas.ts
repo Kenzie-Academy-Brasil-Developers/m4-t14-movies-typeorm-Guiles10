@@ -9,11 +9,14 @@ export const movieSchema = z.object({
 
  export const returnMovieSchema = movieSchema.extend({
     id: z.number(),
-    createdeAt: z.date().optional(),
-    updatedeAt: z.date().optional(),
-    deletedeAt: z.date().nullable().optional(),
  })
 
  export const ReturnAllMoviesSchema = returnMovieSchema.array()
 
  export const UpdateMovieSchema = movieSchema.partial()
+
+ export const ReturnAllMovie = z.object({
+   nextPage: z.string().nullable(),
+   prevPage: z.string().nullable(),
+   data: returnMovieSchema.array()
+ })

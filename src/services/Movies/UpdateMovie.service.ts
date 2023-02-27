@@ -2,9 +2,9 @@ import { Movie } from "../../entities";
 import { AppDataSource } from "../../data-source";
 import { Repository } from "typeorm";
 import { MovieReturn, UpdateMovie } from "../../interfaces/interface.Movies";
-import { returnMovieSchema } from "../../schemas/Movies.schemas";
+import { returnMovieSchema } from "../../schemas/movies.schemas";
 
-export const UpdateMovieService = async (Data: UpdateMovie, Id: number): Promise<MovieReturn> => {
+export const updateMovieService = async (Data: UpdateMovie, Id: number): Promise<MovieReturn> => {
     
     const movieRepository: Repository<Movie> = AppDataSource.getRepository(Movie)
 

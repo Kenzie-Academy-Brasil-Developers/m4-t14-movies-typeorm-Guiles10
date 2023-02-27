@@ -1,13 +1,13 @@
 import { Router } from 'express'
-import { CreateMovieController, DeleteMovieController, ListAllMovieController, UpdateMovieController } from '../controllers/movies.Controllers'
-import { ExistMovieMidd } from '../middlewares/movieExist.Midd'
-import { NameExistMidd } from '../middlewares/nameExist.Midd'
+import { createMovieController, deleteMovieController, listAllMovieController, updateMovieController } from '../controllers/movies.Controllers'
+import { existMovieMidd } from '../middlewares/movieExist.Midd'
+import { nameExistMidd } from '../middlewares/nameExist.Midd'
 import { validateDataMidd } from '../middlewares/validateData.Midd'
-import { movieSchema, UpdateMovieSchema } from '../schemas/Movies.schemas'
+import { movieSchema, UpdateMovieSchema } from '../schemas/movies.schemas'
 
 export const movieRoutes: Router = Router()
 
-movieRoutes.post('', validateDataMidd(movieSchema), NameExistMidd, CreateMovieController)
-movieRoutes.get('', ListAllMovieController)
-movieRoutes.delete ('/:id', ExistMovieMidd, DeleteMovieController)
-movieRoutes.patch ('/:id', validateDataMidd(UpdateMovieSchema), ExistMovieMidd, NameExistMidd, UpdateMovieController)
+movieRoutes.post('', validateDataMidd(movieSchema), nameExistMidd, createMovieController)
+movieRoutes.get('', listAllMovieController)
+movieRoutes.delete ('/:id', existMovieMidd, deleteMovieController)
+movieRoutes.patch ('/:id', validateDataMidd(UpdateMovieSchema), existMovieMidd, nameExistMidd, updateMovieController)

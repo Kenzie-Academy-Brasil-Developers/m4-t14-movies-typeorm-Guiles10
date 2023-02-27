@@ -1,40 +1,41 @@
 import { Request, Response } from "express";
 import { Movie } from "../entities";
-import { CreateMovieService } from "../services/Movies/CreateMovies.service";
-import { DeleteMovieService } from "../services/Movies/DeleteMovie.service";
-import { ListAllMovieService } from "../services/Movies/ListAllMovies.service";
-import { UpdateMovieService } from "../services/Movies/UpdateMovie.service";
+import { createMovieService } from "../services/movies/createMovies.service";
+import { deleteMovieService } from "../services/movies/deleteMovie.service";
+import { listAllMovieService } from "../services/movies/listAllMovies.service";
+import { updateMovieService } from "../services/movies/updateMovie.service";
 
-export const CreateMovieController = async (req: Request, res: Response) => {
+export const createMovieController = async (req: Request, res: Response) => {
     const movieData: Movie = req.body
 
-    const NewMovie = await CreateMovieService(movieData)
+    const NewMovie = await createMovieService(movieData)
 
     return res.status(201).json(NewMovie)
 }
 
-export const ListAllMovieController = async (req: Request, res: Response) => {
+export const listAllMovieController = async (req: Request, res: Response) => {
 
     const { page, perPage} = req.query
+    const { order, sort} = req.query
 
-    const Movies = await ListAllMovieService(page, perPage)
+    const Movies = await listAllMovieService(page, perPage, order, sort)
 
     return res.status(200).json(Movies)
 } 
+ 
+export const deleteMovieController = async (req: Request, res: Response) => {
 
-export const DeleteMovieController = async (req: Request, res: Response) => {
-
-    const Movies = await DeleteMovieService(Number(req.params.id))
+    const Movies = await deleteMovieService(Number(req.params.id))
 
     return res.status(204).send()
 }
 
-export const UpdateMovieController = async (req: Request, res: Response) => {
+export const updateMovieController = async (req: Request, res: Response) => {
 
     const Data = req.body
     const Id = Number(req.params.id)
 
-    const UpdateMovies = await UpdateMovieService(Data, Id)
+    const UpdateMovies = await updateMovieService(Data, Id)
 
     return res.status(200).json(UpdateMovies)
 }

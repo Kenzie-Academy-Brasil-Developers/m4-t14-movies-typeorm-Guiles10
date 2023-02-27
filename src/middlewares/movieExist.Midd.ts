@@ -4,7 +4,7 @@ import { AppDataSource } from '../data-source'
 import { Movie } from '../entities'
 import { AppError } from '../errors'
     
-export const ExistMovieMidd = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const existMovieMidd = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     
     const movieRepository: Repository<Movie> = AppDataSource.getRepository(Movie)
     
@@ -15,7 +15,7 @@ export const ExistMovieMidd = async (req: Request, res: Response, next: NextFunc
     })
 
     if(!findMovie){
-        throw new AppError ('Movie is not Exist', 404)
+        throw new AppError ('Movie not found', 404)
     }
     
     return next()

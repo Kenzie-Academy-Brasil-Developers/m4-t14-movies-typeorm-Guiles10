@@ -17,13 +17,4 @@ export class Movie {
 
     @Column({type: 'integer'})
     price: number
-
-    @CreateDateColumn()
-    createAt: string
-
-    @UpdateDateColumn()
-    updateAt: string
-
-    @DeleteDateColumn()
-    deletedAt: string
 }

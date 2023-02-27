@@ -1,6 +1,6 @@
 import { DeepPartial } from "typeorm";
 import { z } from "zod";
-import { movieSchema, ReturnAllMoviesSchema, returnMovieSchema, UpdateMovieSchema } from "../schemas/Movies.schemas";
+import { movieSchema, ReturnAllMovie, ReturnAllMoviesSchema, returnMovieSchema, UpdateMovieSchema } from "../schemas/movies.schemas";
 
 
 export type Movie = z.infer<typeof movieSchema>
@@ -9,4 +9,7 @@ export type MovieReturn = z.infer<typeof returnMovieSchema>
 
 export type MoviesReturn = z.infer<typeof ReturnAllMoviesSchema>
 
+export type MoviesAllReturn = z.infer<typeof ReturnAllMovie>
+
 export type UpdateMovie = DeepPartial<Movie>
+
