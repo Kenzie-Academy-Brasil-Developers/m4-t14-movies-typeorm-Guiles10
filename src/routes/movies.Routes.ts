@@ -8,6 +8,6 @@ import { movieSchema, UpdateMovieSchema } from '../schemas/movies.schemas'
 export const movieRoutes: Router = Router()
 
 movieRoutes.post('', validateDataMidd(movieSchema), nameExistMidd, createMovieController)
-movieRoutes.get('', listAllMovieController)
+movieRoutes.get('', listAllMovieController) 
 movieRoutes.delete ('/:id', existMovieMidd, deleteMovieController)
 movieRoutes.patch ('/:id', validateDataMidd(UpdateMovieSchema), existMovieMidd, nameExistMidd, updateMovieController)

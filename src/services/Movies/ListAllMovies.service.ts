@@ -8,7 +8,7 @@ export const listAllMovieService = async (page: any, perPage: any, order: any, s
     
     const movieRepository: Repository<Movie> = AppDataSource.getRepository(Movie)
     
-    const baseURL: string =  'http://localhost3000/movies/'
+    const baseURL: string =  'http://localhost:3000/movies'
 
     if (page <= 0 || Number.isNaN(+page) === true){
         page = 1
@@ -47,9 +47,9 @@ export const listAllMovieService = async (page: any, perPage: any, order: any, s
 
     const totalPages = Math.ceil(totalCount / perPage);
 
-    const nextPage = page < totalPages ? `${baseURL}?page=${page + 1}&perPage=${perPage}&sort=${sort}&order=${order}` : null;
+    const nextPage = page < totalPages ? `${baseURL}?page=${page + 1}&perPage=${perPage}` : null;
 
-    const prevPage = page > 1 ? `${baseURL}?page=${page - 1}&perPage=${perPage}&sort=${sort}&order=${order}` : null;
+    const prevPage = page > 1 ? `${baseURL}?page=${page - 1}&perPage=${perPage}` : null;
 
     const data = movie;
 
