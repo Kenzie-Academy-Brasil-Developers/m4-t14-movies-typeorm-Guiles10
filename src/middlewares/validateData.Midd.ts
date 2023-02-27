@@ -10,7 +10,7 @@ export const validateDataMidd = (schema: ZodTypeAny) => (req: Request, res: Resp
 
     const Validatedkey: Array<string> = Object.keys(validatedDate)
     if(!Validatedkey.length){
-        throw new AppError ('teste', 400)
+        throw new AppError ('Movie not found', 404)
     }
 
     return next()

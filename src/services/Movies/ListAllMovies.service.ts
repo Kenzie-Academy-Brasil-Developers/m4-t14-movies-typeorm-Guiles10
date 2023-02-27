@@ -56,6 +56,7 @@ export const listAllMovieService = async (page: any, perPage: any, order: any, s
     const AllMovies: MoviesAllReturn = ReturnAllMovie.parse({
         nextPage,
         prevPage,
+        totalCount,
         data,
     });
 

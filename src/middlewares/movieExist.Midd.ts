@@ -16,7 +16,7 @@ export const existMovieMidd = async (req: Request, res: Response, next: NextFunc
 
     if(!findMovie){
         throw new AppError ('Movie not found', 404)
-    }
+    } 
     
     return next()
 }

@@ -2,9 +2,9 @@ import { z } from 'zod'
 
 export const movieSchema = z.object({
     name: z.string().min(3).max(50),
-    description: z.string().optional().nullable(), //nullish() - Junta Nullable e optional
-    duration: z.number(),
-    price: z.number(),
+    description: z.string().optional().nullable(),
+    duration: z.number().int().positive(),
+    price: z.number().int(),
  })
 
  export const returnMovieSchema = movieSchema.extend({
@@ -18,5 +18,7 @@ export const movieSchema = z.object({
  export const ReturnAllMovie = z.object({
    nextPage: z.string().nullable(),
    prevPage: z.string().nullable(),
+   totalCount: z.number(),
    data: returnMovieSchema.array()
  })
+
