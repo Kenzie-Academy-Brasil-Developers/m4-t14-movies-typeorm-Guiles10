@@ -22,46 +22,34 @@ export const listAllMovieService = async (page: any, perPage: any, order: any, s
     order && order.toLowerCase()
     sort && sort.toLowerCase()
 
-    if(order !== 'desc') order = 'asc'
+    const order1 = order && sort ? order : 'asc'
 
-    if(sort != 'price' && sort != 'duration') sort = 'id'
+    const testSort = sort != 'price' && sort != 'duration' ? 'id' : sort
 
-    let orderBy: string;
-    switch (sort) {
-      case 'price':
-        orderBy = 'price';
-        break;
-      case 'duration':
-        orderBy = 'duration';
-        break;
-      default:
-        orderBy = 'id';
-    }
-
-    const movie: Array<Movie> = await movieRepository.find({
-        take,
-        skip: take * ( skip - 1 ),
+    const movie: any = await movieRepository.findAndCount({
         order: {
-            [orderBy]: order
-        }
-    })
+            [testSort]: order1
+        },
+        take,
+        skip: take * ( skip - 1 )
+    });
 
-    const count = await movieRepository.count();
+    const data = movie[0];
+    const count = movie[1]
 
-    const totalPages = Math.ceil(count / perPage);
+    const totalPages = Math.ceil(movie[1] / perPage);
 
     const nextPage = page < totalPages ? `${baseURL}?page=${Number(page) + 1}&perPage=${perPage}` : null;
 
     const prevPage = page > 1 ? `${baseURL}?page=${Number(page) - 1}&perPage=${perPage}` : null;
 
-    const data = movie;
 
-    const AllMovies: MoviesAllReturn = ReturnAllMovie.parse({
+    const AllMovies: MoviesAllReturn = {
         nextPage,
         prevPage,
         count,
         data,
-    });
+    };
 
     return AllMovies
 }
