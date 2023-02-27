@@ -16,7 +16,7 @@ export const createMovieController = async (req: Request, res: Response) => {
 export const listAllMovieController = async (req: Request, res: Response) => {
 
     const { page, perPage} = req.query
-    const { order, sort} = req.query
+    const { order, sort } = req.query
 
     const Movies = await listAllMovieService(page, perPage, order, sort)
 

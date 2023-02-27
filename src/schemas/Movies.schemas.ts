@@ -18,7 +18,7 @@ export const movieSchema = z.object({
  export const ReturnAllMovie = z.object({
    nextPage: z.string().nullable(),
    prevPage: z.string().nullable(),
-   totalCount: z.number(),
+   count: z.number(),
    data: returnMovieSchema.array()
  })
 

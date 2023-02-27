@@ -19,7 +19,10 @@ export const listAllMovieService = async (page: any, perPage: any, order: any, s
     const take: number = Number(perPage)
     const skip: number = Number(page)
 
-    if(order !== 'DESC') order = 'ASC'
+    order && order.toLowerCase()
+    sort && sort.toLowerCase()
+
+    if(order !== 'desc') order = 'asc'
 
     if(sort != 'price' && sort != 'duration') sort = 'id'
 
@@ -42,21 +45,21 @@ export const listAllMovieService = async (page: any, perPage: any, order: any, s
             [orderBy]: order
         }
     })
-    
-    const totalCount = await movieRepository.count();
 
-    const totalPages = Math.ceil(totalCount / perPage);
+    const count = await movieRepository.count();
 
-    const nextPage = page < totalPages ? `${baseURL}?page=${page + 1}&perPage=${perPage}` : null;
+    const totalPages = Math.ceil(count / perPage);
 
-    const prevPage = page > 1 ? `${baseURL}?page=${page - 1}&perPage=${perPage}` : null;
+    const nextPage = page < totalPages ? `${baseURL}?page=${Number(page) + 1}&perPage=${perPage}` : null;
+
+    const prevPage = page > 1 ? `${baseURL}?page=${Number(page) - 1}&perPage=${perPage}` : null;
 
     const data = movie;
 
     const AllMovies: MoviesAllReturn = ReturnAllMovie.parse({
         nextPage,
         prevPage,
-        totalCount,
+        count,
         data,
     });
 
