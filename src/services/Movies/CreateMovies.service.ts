@@ -1,5 +1,5 @@
 import { Movie } from "../../entities";
-import { MovieReturn } from "../../interfaces/interface.Movies";
+import { MovieReturn } from "../../interfaces/interfaceMovies";
 import { AppDataSource } from "../../data-source";
 import { Repository } from "typeorm";
 import { returnMovieSchema } from "../../schemas/movies.schemas";
