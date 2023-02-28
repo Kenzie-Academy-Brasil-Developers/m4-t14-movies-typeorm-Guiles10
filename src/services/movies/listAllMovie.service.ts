@@ -15,6 +15,7 @@ export const listAllMovieService = async (page: any, perPage: any, order: any, s
     if(perPage <= 0 || perPage > 5 || Number.isNaN(+perPage) === true){
         perPage = 5
     }
+
     const take: number = Number(perPage)
     const skip: number = Number(page)
 
@@ -34,6 +35,7 @@ export const listAllMovieService = async (page: any, perPage: any, order: any, s
     });
 
     const data = movie[0];
+    
     const count = movie[1]
 
     const totalPages = Math.ceil(movie[1] / perPage);

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { createMovieController, deleteMovieController, listAllMovieController, updateMovieController } from '../controllers/movies.controllers'
+import { createMovieController, deleteMovieController, listAllMovieController, updateMovieController } from '../controllers/movie.controllers'
 import { existMovieMidd } from '../middlewares/movieExist.Midd'
 import { nameExistMidd } from '../middlewares/nameExist.Midd'
 import { validateDataMidd } from '../middlewares/validateData.Midd'

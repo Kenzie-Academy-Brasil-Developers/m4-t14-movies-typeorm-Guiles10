@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { Movie } from "../entities";
-import { createMovieService } from "../services/movies/createMovies.service";
-import { deleteMovieService } from "../services/movies/deleteMovie.service";
-import { listAllMovieService } from "../services/movies/listAllMovies.service";
-import { updateMovieService } from "../services/movies/updateMovie.service";
+import { createMovieService } from "../services/movies/createOneMovies.service";
+import { deleteMovieService } from "../services/movies/deleteOneMovie.service";
+import { listAllMovieService } from "../services/movies/listAllMovie.service";
+import { updateMovieService } from "../services/movies/updateOneMovie.service";
 
 export const createMovieController = async (req: Request, res: Response) => {
     const movieData: Movie = req.body
