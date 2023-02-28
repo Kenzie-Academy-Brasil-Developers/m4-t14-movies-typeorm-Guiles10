@@ -2,7 +2,6 @@ import { Movie } from "../../entities";
 import { MoviesAllReturn } from "../../interfaces/interface.Movies";
 import { AppDataSource } from "../../data-source";
 import { Repository } from "typeorm";
-import { ReturnAllMovie } from "../../schemas/movies.schemas";
 
 export const listAllMovieService = async (page: any, perPage: any, order: any, sort: any): Promise<MoviesAllReturn> => {
     
